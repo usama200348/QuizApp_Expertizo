@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primary-color: #007BFF; 
+    --secondary-color: #343A40; 
+    --light-background: #F8F9FA; 
+    --card-background: rgba(255, 255, 255, 0.9); 
+    --text-color: #212529; 
+    --hover-color: #0056b3; 
+}
+
+.bg-light-gray {
+    background-color: var(--light-background);
+}
+
+.text-primary {
+    color: var(--primary-color);
+}
+
+.text-secondary {
+    color: var(--secondary-color);
+}
+
+.bg-card {
+    background-color: var(--card-background);
+}
+
+.hover\:bg-hover:hover {
+    background-color: var(--hover-color);
+}
+
+/* App.css */
+
+/* Body and background settings */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--light-background); /* Light background */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Centering the app container */
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container styles */
+.bg-white {
+    background: var(--card-background); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Blur effect behind the container */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    border-radius: 15px; /* Rounded edges */
+    padding: 2rem; /* Padding around the content */
+    transition: transform 0.2s ease; /* Smooth transition on hover */
+}
+
+/* Button styles */
+.bg-primary {
+    background-color: var(--primary-color); /* Bright blue color */
+}
+
+/* Text styles */
+.text-primary {
+    color: var(--text-color); /* Text color */
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: var(--hover-color); /* Change to hover color */
+}
+
+/* Styling for score display */
+.text-xl {
+    font-size: 1.5rem; /* Larger font size for score */
+}
+
+/* Loader styles */
+.border {
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Light border for loader */
+    border-radius: 10px; /* Rounded edges for loader */
+}
+
+/* Pulse animation for loader */
+.animate-pulse {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.7;
+    }
+}
+
+/* Input radio button styles */
+input[type="radio"] {
+    accent-color: var(--primary-color); /* Color for radio buttons */
+}
