@@ -3,109 +3,118 @@
 @tailwind utilities;
 
 :root {
-    --primary-color: #007BFF; 
-    --secondary-color: #343A40; 
-    --light-background: #F8F9FA; 
-    --card-background: rgba(255, 255, 255, 0.9); 
-    --text-color: #212529; 
-    --hover-color: #0056b3; 
+    --primary-color: #4C9AFF; 
+    --secondary-color: #1D2D50;
+    --background-gradient: linear-gradient(135deg, #f0f4ff, #e8f0fd); 
+    --card-background: #ffffff; 
+    --text-color: #333333; 
+    --hover-color: #3778C2;
+    --button-bg: #4C9AFF; 
+    --button-text-color: #ffffff; 
 }
 
-.bg-light-gray {
-    background-color: var(--light-background);
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--background-gradient);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-.text-primary {
-    color: var(--primary-color);
-}
-
-.text-secondary {
-    color: var(--secondary-color);
+.flex {
+    display: flex;
+    justify-content: left;
+    align-items: center;
 }
 
 .bg-card {
     background-color: var(--card-background);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 1); 
+    border-radius: 10px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 480px;
+    transition: transform 0.3s ease-in-out;
 }
 
-.hover\:bg-hover:hover {
+.bg-card:hover {
+    transform: scale(1.02); 
+}
+
+h1, h2 {
+    color: var(--secondary-color);
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.text-gray {
+    color: var(--text-color);
+}
+
+
+button {
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
     background-color: var(--hover-color);
 }
 
-/* App.css */
-
-/* Body and background settings */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: var(--light-background); /* Light background */
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Centering the app container */
-.flex {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Container styles */
-.bg-white {
-    background: var(--card-background); /* Semi-transparent white background */
-    backdrop-filter: blur(10px); /* Blur effect behind the container */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Soft shadow */
-    border-radius: 15px; /* Rounded edges */
-    padding: 2rem; /* Padding around the content */
-    transition: transform 0.2s ease; /* Smooth transition on hover */
-}
-
-/* Button styles */
-.bg-primary {
-    background-color: var(--primary-color); /* Bright blue color */
-}
-
-/* Text styles */
-.text-primary {
-    color: var(--text-color); /* Text color */
-}
-
-/* Button hover effect */
-button:hover {
-    background-color: var(--hover-color); /* Change to hover color */
-}
-
-/* Styling for score display */
-.text-xl {
-    font-size: 1.5rem; /* Larger font size for score */
-}
-
-/* Loader styles */
-.border {
-    border: 2px solid rgba(255, 255, 255, 0.5); /* Light border for loader */
-    border-radius: 10px; /* Rounded edges for loader */
-}
-
-/* Pulse animation for loader */
 .animate-pulse {
-    animation: pulse 1.5s infinite;
+    animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-    0% {
-        opacity: 0.7;
+    0%, 100% {
+        opacity: 0.6;
     }
     50% {
         opacity: 1;
     }
-    100% {
-        opacity: 0.7;
-    }
 }
 
-/* Input radio button styles */
 input[type="radio"] {
-    accent-color: var(--primary-color); /* Color for radio buttons */
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    position: relative;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked {
+    background-color: var(--primary-color);
+}
+
+input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.6rem;
+    height: 0.6rem;
+    background-color: white;
+    border-radius: 50%;
 }

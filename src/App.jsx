@@ -7,13 +7,15 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
+  const [shuffleOption, setShuffleOption] = useState([])
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const response = await axios('https://the-trivia-api.com/v2/questions');
-        console.log(response.data)
         setQuestions(response.data);
+        console.log(response.data);
+        
       } catch (error) {
         console.error(error);
       }
@@ -21,30 +23,48 @@ function App() {
     fetchQuestions();
   }, []);
 
+  useEffect(() => {
+    if (questions) {
+      setShuffleOption(getOptions());
+    }
+  }, [currentIndex, questions])
   const updateScore = () => {
     if (selectedAnswer === questions[currentIndex].correctAnswer) {
       setScore(score + 1);
     }
   };
 
+  const getOptions = () => {
+    
+    if (!questions || currentIndex >= questions.length) {
+      return [];
+    }
+    
+    const currentQuestion = questions[currentIndex];
+    
+   
+    if (!currentQuestion || !currentQuestion.incorrectAnswers) {
+      return []; 
+    }
+    
+    const options = [
+      ...currentQuestion.incorrectAnswers,
+      currentQuestion.correctAnswer,
+    ];
+    
+    return options; 
+  };
+  
   const NextQuestion = () => {
-    updateScore(); // Update score based on the selected answer before moving to the next question
+    updateScore();
     if (currentIndex < questions.length - 1) {
       setCurrentIndex(currentIndex + 1);
-      setSelectedAnswer(''); // Reset selected answer for the next question
+      setSelectedAnswer('');
     } else {
-      setCurrentIndex(currentIndex + 1); // To trigger the result display
+      setCurrentIndex(questions.length); 
     }
   };
-
   
-  const getOptions = () => {
-    const options = [
-      ...questions[currentIndex].incorrectAnswers,
-      questions[currentIndex].correctAnswer,
-    ];
-    return shuffleArray(options); 
-  };
 
   const shuffleArray = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -55,11 +75,11 @@ function App() {
   };
 
   const handleAnswerSelect = (answer) => {
-    setSelectedAnswer(answer); // Set the selected answer
+    setSelectedAnswer(answer);
   };
 
   const renderOptions = () => {
-    const options = getOptions(); // Get shuffled options
+    const options = getOptions();
 
     return options.map((item, index) => (
       <div key={`option${index}`} className="flex items-center mb-3">
@@ -68,8 +88,8 @@ function App() {
           name={`question${currentIndex}`}
           id={`option${index}`}
           value={item}
-          checked={selectedAnswer === item} // Ensure the correct option is checked
-          onChange={() => handleAnswerSelect(item)} // Handle option selection
+          checked={selectedAnswer === item}
+          onChange={() => handleAnswerSelect(item)}
           className="form-radio h-5 w-5 text-dark-blue focus:ring-dark-blue"
         />
         <label className="ml-3 text-dark-gray" htmlFor={`option${index}`}>
@@ -102,10 +122,10 @@ function App() {
             <h2 className="text-xl font-semibold mb-4">
               {currentIndex + 1}) {questions[currentIndex].question.text}
             </h2>
-            {renderOptions()} {/* Render options here */}
+            {renderOptions()}
             <div className="flex justify-center">
               <button
-                disabled={!selectedAnswer} // Disable if no option is selected
+                disabled={!selectedAnswer}
                 className={`mt-4 ${!selectedAnswer ? 'bg-gray-400' : 'bg-dark-blue'} text-white py-2 px-4 rounded hover:bg-blue-700 transition`}
                 onClick={NextQuestion}
               >
